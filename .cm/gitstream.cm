@@ -242,12 +242,12 @@ is:
   tests: {{ files | allTests }}
 
 color:
-  red: B60205
-  orange: D93F0B
-  yellow: FBCA04
-  green: 0E8A16
-  blue: 1D76DB
-  purple: 5319E7
+  red: 'B60205'
+  orange: 'D93F0B'
+  yellow: 'FBCA04'
+  green: '0E8A16'
+  blue: '1D76DB'
+  purple: '5319E7'
 
 # For sensitive areas of code, assign yourself or your team to be
 # notified when changes are made.
