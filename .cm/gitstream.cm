@@ -30,7 +30,7 @@ automations:
   # their values are like - some are marked "-redacted-" cause their output
   # can be super long
   print_variables:
-      if:
+    if:
       - {{ setting.PRINT_VARIABLES }}
     run:
       - action: add-comment@v1
