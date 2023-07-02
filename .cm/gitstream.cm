@@ -8,7 +8,7 @@ automations:
       if:
         - true
       run:
-        - action: require-reviewers@v1
+        - action: add-reviewers@v1
           args:
             reviewers: [yeela-org/yeela-team]
 
