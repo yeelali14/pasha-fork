@@ -1,17 +1,27 @@
 # -*- mode: yaml -*-
+manifest:
+  version: 1.0
+on:
+  - commit
 automations:
-  label_missing_jira_info:
-    # Triggered for PRs that don't have either a Jira ticket number in the title,
-    # or a link to a Jira ticket in the PR description.
-    if:
-      - {{ files | match(regex=r/Standard\/label-missing-jira\//) | every }}
-      - {{ not (has.jira_ticket_in_title or has.jira_ticket_in_desc) }}
+  suggest_code_experts:
+    on:
+      - label_added
+    if: 
+      - {{ pr.labels | match(term='suggest-reviewer') | some }}
     run:
-      - action: add-label@v1
+      - action: explain-code-experts@v1
         args:
-          label: "missing-jira"
-          color: 'F6443B'
+          gt: 10
 
-has:
-  jira_ticket_in_title: {{ pr.title | includes(regex=r/\b[A-Za-z]+-\d+\b/) }}
-  jira_ticket_in_desc: {{ pr.description | includes(regex=r/atlassian.net\/browse\/\w{1,}-\d{3,4}/) }}
+  approve_safe_changes:
+    if:
+      - {{ is.formatting or is.docs or is.image }}
+    run: 
+      - action: approve@v1
+
+# These custom expressions are used in the safe_changes automation
+is:
+  formatting: {{ source.diff.files | isFormattingChange }}
+  docs: {{ files | allDocs }}
+  image: {{ files | allImages }}
