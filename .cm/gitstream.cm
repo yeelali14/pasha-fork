@@ -2,7 +2,7 @@
 manifest:
   version: 1.0
 on:
-  - commit
+  - pr_created
 automations:
   suggest_code_experts:
     on:
