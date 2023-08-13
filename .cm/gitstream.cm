@@ -1,10 +1,10 @@
 # -*- mode: yaml -*-
 manifest:
   version: 1.0
-on:
-  - pr_created
 automations:
   suggest_code_experts:
+    on:
+      - pr_created
     if: 
       - {{ pr.labels | match(term='suggest-reviewer') | some }}
     run:
