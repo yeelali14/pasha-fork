@@ -3,6 +3,8 @@ manifest:
   version: 1.0
 automations:
   approve_safe_changes:
+    on:
+      - pr_created
     if:
       - {{ is.formatting or is.docs or is.image }}
     run:
