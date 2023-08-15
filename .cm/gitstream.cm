@@ -11,8 +11,6 @@ automations:
           gt: 10
 
   approve_safe_changes:
-    on:
-      - commit
     if:
       - {{ is.formatting or is.docs or is.image }}
     run: 
