@@ -1,0 +1,37 @@
+# -*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+
+automations:
+  merge_automation:
+    if:
+      - {{ files | length == 3 }}
+    run:
+      - action: merge@v1
+  catch_deprecated:
+    if:
+      - {{ files | length == 1 }}
+    run:
+      - action: add-label@v1
+        args:
+          label: 'test error'
+      - action: add-comment@v1
+        args:
+          comment: comment
+  review_with_check:
+    if:
+      - true
+    run:
+      - action: add-reviewers@v1
+        args:
+          reviewers: [EladKohavi]
+  serverless_envs:
+    if:
+      - {{ source.diff.files | match(attr='new_file', term='serverless.yml') | some }}
+      - {{ source.diff.files | matchDiffLines(regex=r/^\+\s*([A-Z_0-9]+:\s*.*)$/) | some }}
+    run:
+      - action: request-changes@v1
+        args:
+          comment: |
+            change
