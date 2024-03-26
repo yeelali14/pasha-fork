@@ -21,7 +21,7 @@ automations:
           comment: comment
   review_with_check:
     if:
-      - true
+      - false
     run:
       - action: add-reviewers@v1
         args:
